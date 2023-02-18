@@ -4,7 +4,6 @@ const Ship = (name, length) => {
   ship.name = name;
   ship.length = length;
   ship.numberOfHits = numberOfHits;
-  ship.location = [];
   return ship;
 };
 
@@ -15,10 +14,6 @@ const shipActions = {
 
   isSunk() {
     return this.numberOfHits === this.length;
-  },
-
-  setLocation(coords) {
-    return (this.location = [...coords]);
   },
 };
 
