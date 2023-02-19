@@ -14,3 +14,18 @@ test("Ship will sink", () => {
   ship.hit();
   expect(ship.isSunk()).toBe(true);
 });
+
+test("Set ships location", () => {
+  let ship = Ship("test", 3);
+  ship.setLocation([
+    [1, 2],
+    [1, 3],
+    [1, 4],
+  ]);
+  expect(ship.location).toHaveLength(3);
+  expect(ship.location).toEqual([
+    [1, 2],
+    [1, 3],
+    [1, 4],
+  ]);
+});
