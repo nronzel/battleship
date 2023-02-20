@@ -18,7 +18,7 @@ const shipActions = {
   },
 
   setLocation(coords) {
-    return this.location.push(coords);
+    return this.location.push(...coords);
   },
 };
 
