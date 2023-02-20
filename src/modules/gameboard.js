@@ -5,13 +5,13 @@ const Gameboard = () => {
   gameboard.moves = { misses: [], hits: [] };
   gameboard.allSunk = false;
   gameboard.board = [];
-  gameboard.ships = {
-    carrier: Ship("carrier", 5),
-    battleship: Ship("battleship", 4),
-    submarine: Ship("submarine", 3),
-    destroyer: Ship("destroyer", 3),
-    patrol: Ship("patrol", 2),
-  };
+  gameboard.ships = [
+    Ship("carrier", 5),
+    Ship("battleship", 4),
+    Ship("submarine", 3),
+    Ship("destroyer", 3),
+    Ship("patrol", 2),
+  ];
 
   return gameboard;
 };
