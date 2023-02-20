@@ -40,3 +40,33 @@ test("all ships sunk is true after 17 total hits", () => {
   expect(board.allSunk).toBe(true);
   expect(board.moves.hits).toHaveLength(17);
 });
+
+test("register misses - no duplicates", () => {
+  let board = Gameboard();
+  board.setShipLocation(board.ships[4], [
+    [3, 3],
+    [4, 3],
+  ]);
+
+  board.receiveAttack([1, 1]);
+  board.receiveAttack([1, 1]);
+  board.receiveAttack([1, 2]);
+
+  expect(board.moves.misses).toHaveLength(2);
+  expect(board.moves.hits).toHaveLength(0);
+});
+
+test("register hits - no duplicates", () => {
+  let board = Gameboard();
+  board.setShipLocation(board.ships[4], [
+    [3, 3],
+    [4, 3],
+  ]);
+
+  board.receiveAttack([3, 3]);
+  board.receiveAttack([3, 3]);
+  board.receiveAttack([1, 2]);
+
+  expect(board.moves.misses).toHaveLength(1);
+  expect(board.moves.hits).toHaveLength(1);
+});
