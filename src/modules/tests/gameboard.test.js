@@ -35,6 +35,8 @@ test("all ships sunk is true after 17 total hits", () => {
     [2, 9],
     [0, 0],
   ];
+  board.allShipsSunk();
+  expect(board.allSunk).toBe(false);
   board.moves.hits.push(...hits);
   board.allShipsSunk();
   expect(board.allSunk).toBe(true);
