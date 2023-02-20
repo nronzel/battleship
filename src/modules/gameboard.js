@@ -5,7 +5,6 @@ const Gameboard = () => {
   gameboard.moves = { misses: [], hits: [] };
   gameboard.allSunk = false;
   gameboard.board = [];
-  gameboard.shipCoords = [];
   gameboard.ships = {
     carrier: Ship("carrier", 5),
     battleship: Ship("battleship", 4),
@@ -19,10 +18,44 @@ const Gameboard = () => {
 
 const gameboardActions = {
   receiveAttack(coords) {
-    // check the coords against the coords in the shipCoords array
-    // if exists, get the ship and add to hit counter
-    console.log("attacked");
-    return;
+    // check against the moves already done and return if it has already been guessed
+    if (this.checkIfMoveExists(coords)) return "move exists";
+
+    // check if guess results in a hit
+    if (this.checkIfHit(coords)) return "hit";
+
+    this.moves.misses.push(coords);
+
+    return console.log("not hit");
+  },
+
+  checkIfHit(coords) {
+    let result = false;
+
+    this.ships.forEach((ship) => {
+      ship.location.some((location) => {
+        if (location[0] === coords[0] && location[1] === coords[1]) {
+          // hit actions are performed here rather than in receiveAttack to prevent
+          // having to loop through the ships twice
+          ship.hit();
+          this.moves.hits.push(coords);
+          result = true;
+        }
+      });
+    });
+    return result;
+  },
+
+  checkIfMoveExists(coords) {
+    let result = false;
+
+    for (const moves in this.moves) {
+      this.moves[moves].some((coord) => {
+        if (coord[0] === coords[0] && coord[1] === coords[1]) result = true;
+      });
+    }
+
+    return result;
   },
 
   allShipsSunk() {
@@ -42,15 +75,12 @@ const gameboardActions = {
     }
   },
 
-  setShipLocation(ship, location) {
-    ship.location = location;
-
-    let locationObj = {
-      name: ship.name,
-      location: ship.location,
-    };
-
-    this.shipCoords.push(locationObj);
+  setShipLocation(ship, coords) {
+    this.ships.forEach((object) => {
+      if (object.name === ship.name) {
+        object.setLocation(coords);
+      }
+    });
   },
 };
 
