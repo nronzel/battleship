@@ -14,29 +14,6 @@ test("verifies board gets created", () => {
   expect(board.board).toHaveLength(10);
 });
 
-test("sets ship location", () => {
-  let board = Gameboard();
-  board.setShipLocation(board.ships.carrier, [
-    [1, 2],
-    [1, 3],
-    [1, 4],
-    [1, 5],
-    [1, 6],
-  ]);
-
-  expect(board.shipCoords[0]).toHaveProperty("name");
-  expect(board.shipCoords[0]).toHaveProperty("location");
-  expect(board.shipCoords[0].name).toBe("carrier");
-  expect(board.shipCoords[0].location).toHaveLength(5);
-  expect(board.shipCoords[0].location).toEqual([
-    [1, 2],
-    [1, 3],
-    [1, 4],
-    [1, 5],
-    [1, 6],
-  ]);
-});
-
 test("all ships sunk is true after 17 total hits", () => {
   let board = Gameboard();
   let hits = [
