@@ -11,6 +11,7 @@ test("tests board object", () => {
 test("verifies board gets created", () => {
   let board = Gameboard();
   board.initBoard();
+
   expect(board.board).toHaveLength(10);
 });
 
