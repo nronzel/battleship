@@ -5,14 +5,14 @@ test("tests board object", () => {
 
   expect(board.allSunk).toBe(false);
 
-  expect(board).toHaveProperty("initBoard");
+  expect(board).toHaveProperty("initGrid");
 });
 
 test("verifies board gets created", () => {
   let board = Gameboard();
-  board.initBoard();
+  board.initGrid();
 
-  expect(board.board).toHaveLength(10);
+  expect(board.grid).toHaveLength(10);
 });
 
 test("all ships sunk is true after 17 total hits", () => {
