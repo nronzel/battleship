@@ -4,7 +4,7 @@ const Gameboard = () => {
   let gameboard = Object.create(gameboardActions);
   gameboard.moves = { misses: [], hits: [] };
   gameboard.allSunk = false;
-  gameboard.board = [];
+  gameboard.grid = [];
   gameboard.ships = [
     Ship("carrier", 5),
     Ship("battleship", 4),
@@ -65,12 +65,12 @@ const gameboardActions = {
     }
   },
 
-  initBoard() {
+  initGrid() {
     // create 10 x 10 grid with coordinates
     // [main [column [square]]]
     for (let i = 0; i < 10; i++) {
       let row = [];
-      this.board.push(row);
+      this.grid.push(row);
       for (let j = 0; j < 10; j++) row.push([i, j]);
     }
   },
