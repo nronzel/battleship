@@ -36,10 +36,10 @@ test("all ships sunk is true after 17 total hits", () => {
     [2, 9],
     [0, 0],
   ];
-  board.moves.hits.push(...hits);
+  board.hits.push(...hits);
   board.allShipsSunk();
   expect(board.allSunk).toBe(true);
-  expect(board.moves.hits).toHaveLength(17);
+  expect(board.hits).toHaveLength(17);
 });
 
 test("register misses - no duplicates", () => {
@@ -53,8 +53,8 @@ test("register misses - no duplicates", () => {
   board.receiveAttack([1, 1]);
   board.receiveAttack([1, 2]);
 
-  expect(board.moves.misses).toHaveLength(2);
-  expect(board.moves.hits).toHaveLength(0);
+  expect(board.misses).toHaveLength(2);
+  expect(board.hits).toHaveLength(0);
 });
 
 test("register hits - no duplicates", () => {
@@ -67,7 +67,8 @@ test("register hits - no duplicates", () => {
   board.receiveAttack([3, 3]);
   board.receiveAttack([3, 3]);
   board.receiveAttack([1, 2]);
+  board.receiveAttack([1, 2]);
 
-  expect(board.moves.misses).toHaveLength(1);
-  expect(board.moves.hits).toHaveLength(1);
+  expect(board.misses).toHaveLength(1);
+  expect(board.hits).toHaveLength(1);
 });
