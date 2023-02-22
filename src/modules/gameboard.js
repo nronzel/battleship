@@ -2,7 +2,8 @@ import { Ship } from "./ship.js";
 
 const Gameboard = () => {
   let gameboard = Object.create(gameboardActions);
-  gameboard.moves = { misses: [], hits: [] };
+  gameboard.misses = [];
+  gameboard.hits = [];
   gameboard.allSunk = false;
   gameboard.grid = [];
   gameboard.ships = [
@@ -19,12 +20,12 @@ const Gameboard = () => {
 const gameboardActions = {
   receiveAttack(coords) {
     // check against the moves already done and return if it has already been guessed
-    if (this.checkIfMoveExists(coords)) return "move exists";
+    if (this.checkIfExistingMove(coords)) return "move exists";
 
     // check if guess results in a hit
     if (this.checkIfHit(coords)) return "hit";
 
-    this.moves.misses.push(coords);
+    this.misses.push(coords);
 
     return console.log("not hit");
   },
@@ -38,7 +39,7 @@ const gameboardActions = {
           // hit actions are performed here rather than in receiveAttack to prevent
           // having to loop through the ships twice
           ship.hit();
-          this.moves.hits.push(coords);
+          this.hits.push(coords);
           result = true;
         }
       });
@@ -46,20 +47,22 @@ const gameboardActions = {
     return result;
   },
 
-  checkIfMoveExists(coords) {
+  checkIfExistingMove(coords) {
     let result = false;
 
-    for (const moves in this.moves) {
-      this.moves[moves].some((coord) => {
-        if (coord[0] === coords[0] && coord[1] === coords[1]) result = true;
-      });
-    }
+    this.misses.some((coord) => {
+      if (coord[0] === coords[0] && coord[1] === coords[1]) result = true;
+    });
+
+    this.hits.some((coord) => {
+      if (coord[0] === coords[0] && coord[1] === coords[1]) result = true;
+    });
 
     return result;
   },
 
   allShipsSunk() {
-    if (this.moves.hits.length === 17) {
+    if (this.hits.length === 17) {
       this.allSunk = true;
       return console.log("all sunk, game over");
     }
