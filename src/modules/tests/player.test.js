@@ -13,8 +13,16 @@ test("create CPU opponent", () => {
   expect(cpu).toHaveProperty("getRandomMove");
 });
 
-test("CPU generates random moves", () => {
+test("generates random x & y coord", () => {
   let cpu = Player("CPU", true);
-  cpu.board.misses.push([1, 2], [2, 5]);
-  expect(Array.isArray(cpu.getRandomMove())).toBe(true);
+  let move = cpu.getRandomMove();
+  expect(Array.isArray(move)).toBe(true);
+  expect(move).toHaveLength(2);
+});
+
+test("random x & y are under 10", () => {
+  let cpu = Player("CPU", true);
+  let move = cpu.getRandomMove();
+  expect(move[0]).toBeLessThan(10);
+  expect(move[1]).toBeLessThan(10);
 });
