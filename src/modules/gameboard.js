@@ -79,11 +79,7 @@ const gameboardActions = {
   },
 
   setShipLocation(ship, coords) {
-    this.ships.forEach((object) => {
-      if (object.name === ship.name) {
-        object.setLocation(coords);
-      }
-    });
+    return ship.setLocation(coords);
   },
 };
 
