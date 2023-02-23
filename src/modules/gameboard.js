@@ -19,15 +19,20 @@ const Gameboard = () => {
 
 const gameboardActions = {
   receiveAttack(coords) {
-    // check against the moves already done and return if it has already been guessed
-    if (this.checkIfExistingMove(coords)) return "move exists";
+    if (coords === "random") coords = this.randomMove();
 
-    // check if guess results in a hit
-    if (this.checkIfHit(coords)) return "hit";
+    if (this.checkIfExistingMove(coords)) {
+      console.log("Move already done");
+      return -1;
+    }
 
-    this.misses.push(coords);
-
-    return console.log("not hit");
+    if (this.checkIfHit(coords)) {
+      this.allShipsSunk();
+      return "hit";
+    } else {
+      this.misses.push(coords);
+      return "not hit";
+    }
   },
 
   checkIfHit(coords) {
@@ -39,6 +44,7 @@ const gameboardActions = {
           // hit actions are performed here rather than in receiveAttack to prevent
           // having to loop through the ships twice
           ship.hit();
+          ship.isSunk();
           this.hits.push(coords);
           result = true;
         }
@@ -47,18 +53,27 @@ const gameboardActions = {
     return result;
   },
 
+  randomMove() {
+    let coords = [
+      Math.floor(Math.random() * 10),
+      Math.floor(Math.random() * 10),
+    ];
+    do {
+      coords = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
+    } while (this.checkIfExistingMove(coords));
+    return coords;
+  },
+
   checkIfExistingMove(coords) {
-    let result = false;
-
-    this.misses.some((coord) => {
-      if (coord[0] === coords[0] && coord[1] === coords[1]) result = true;
-    });
-
-    this.hits.some((coord) => {
-      if (coord[0] === coords[0] && coord[1] === coords[1]) result = true;
-    });
-
-    return result;
+    return (
+      this.hits.some(
+        (hitCoords) => hitCoords[0] === coords[0] && hitCoords[1] === coords[1]
+      ) ||
+      this.misses.some(
+        (missCoords) =>
+          missCoords[0] === coords[0] && missCoords[1] === coords[1]
+      )
+    );
   },
 
   allShipsSunk() {
