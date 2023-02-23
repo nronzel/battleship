@@ -1,31 +1,61 @@
 import { Ship } from "../ship.js";
 
-test("Hit always increments by 1", () => {
-  let ship = Ship("test", 3);
-  ship.hit();
-  ship.hit();
-  expect(ship.numberOfHits).toBe(2);
-});
+describe("Ship", () => {
+  let ship;
 
-test("Ship will sink", () => {
-  let ship = Ship("test", 3);
-  ship.hit();
-  ship.hit();
-  ship.hit();
-  expect(ship.isSunk()).toBe(true);
-});
+  beforeEach(() => {
+    ship = Ship("carrier", 5);
+  });
 
-test("Set ships location", () => {
-  let ship = Ship("test", 3);
-  ship.setLocation([
-    [1, 2],
-    [1, 3],
-    [1, 4],
-  ]);
-  expect(ship.location).toHaveLength(3);
-  expect(ship.location).toEqual([
-    [1, 2],
-    [1, 3],
-    [1, 4],
-  ]);
+  test("Create an object with the correct properties", () => {
+    expect(ship).toMatchObject({
+      name: "carrier",
+      length: 5,
+      numberOfHits: 0,
+      location: expect.any(Array),
+      hit: expect.any(Function),
+      isSunk: expect.any(Function),
+      setLocation: expect.any(Function),
+    });
+  });
+
+  test("hit() method should increment the number of hits", () => {
+    expect(ship.numberOfHits).toBe(0);
+    ship.hit();
+    expect(ship.numberOfHits).toBe(1);
+    ship.hit();
+    expect(ship.numberOfHits).toBe(2);
+  });
+
+  test("isSunk() method should return true if the ship is sunk", () => {
+    expect(ship.isSunk()).toBe(false);
+    ship.hit();
+    expect(ship.isSunk()).toBe(false);
+    ship.hit();
+    expect(ship.isSunk()).toBe(false);
+    ship.hit();
+    expect(ship.isSunk()).toBe(false);
+    ship.hit();
+    expect(ship.isSunk()).toBe(false);
+    ship.hit();
+    expect(ship.isSunk()).toBe(true);
+  });
+
+  test("setLocation() method should add coordinates to the ship location", () => {
+    expect(ship.location).toHaveLength(0);
+    ship.setLocation([
+      [0, 0],
+      [0, 1],
+      [0, 2],
+      [0, 3],
+      [0, 4],
+    ]);
+    expect(ship.location).toEqual([
+      [0, 0],
+      [0, 1],
+      [0, 2],
+      [0, 3],
+      [0, 4],
+    ]);
+  });
 });
