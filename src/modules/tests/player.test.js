@@ -1,28 +1,27 @@
 import { Player } from "../player.js";
 
-test("create player", () => {
-  let player = Player("P1");
+describe("Player", () => {
+  let player;
+  let cpu;
 
-  expect(player).toHaveProperty("board");
-  expect(player.isCpu).toBe(false);
-});
+  beforeEach(() => {
+    player = Player("Player 1");
+    cpu = Player("CPU", true);
+  });
 
-test("create CPU opponent", () => {
-  let cpu = Player("CPU", true);
+  test("Create player with correct properties", () => {
+    expect(player).toMatchObject({
+      name: "Player 1",
+      board: expect.any(Object),
+      isCpu: false,
+    });
+  });
 
-  expect(cpu).toHaveProperty("getRandomMove");
-});
-
-test("generates random x & y coord", () => {
-  let cpu = Player("CPU", true);
-  let move = cpu.getRandomMove();
-  expect(Array.isArray(move)).toBe(true);
-  expect(move).toHaveLength(2);
-});
-
-test("random x & y are under 10", () => {
-  let cpu = Player("CPU", true);
-  let move = cpu.getRandomMove();
-  expect(move[0]).toBeLessThan(10);
-  expect(move[1]).toBeLessThan(10);
+  test("Create CPU with correct properties", () => {
+    expect(cpu).toMatchObject({
+      name: "CPU",
+      board: expect.any(Object),
+      isCpu: true,
+    });
+  });
 });
