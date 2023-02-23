@@ -78,7 +78,10 @@ describe("Gameboard", () => {
 
   test("Do not allow attacking the same square twice", () => {
     gameboard.receiveAttack([0, 0]);
+    // add mock 'hit'
+    gameboard.hits.push([1, 1]);
 
+    expect(gameboard.receiveAttack([1, 1])).toBe(-1);
     expect(gameboard.receiveAttack([0, 0])).toBe(-1);
   });
 
