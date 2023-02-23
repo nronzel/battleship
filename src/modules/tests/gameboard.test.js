@@ -76,6 +76,12 @@ describe("Gameboard", () => {
     expect(gameboard.hits).toContainEqual([0, 0]);
   });
 
+  test("Do not allow attacking the same square twice", () => {
+    gameboard.receiveAttack([0, 0]);
+
+    expect(gameboard.receiveAttack([0, 0])).toBe(-1);
+  });
+
   test("generates random coordinate", () => {
     let move = gameboard.randomMove();
 
