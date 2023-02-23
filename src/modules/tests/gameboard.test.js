@@ -95,9 +95,9 @@ describe("Gameboard", () => {
   test("random coordinate is in playable area", () => {
     let move = gameboard.randomMove();
 
-    expect(move[0]).toBeLessThan(10);
-    expect(move[0]).toBeGreaterThan(0);
-    expect(move[1]).toBeLessThan(10);
-    expect(move[1]).toBeGreaterThan(0);
+    expect(move[0]).toBeLessThanOrEqual(9);
+    expect(move[0]).toBeGreaterThanOrEqual(0);
+    expect(move[1]).toBeLessThanOrEqual(9);
+    expect(move[1]).toBeGreaterThanOrEqual(0);
   });
 });
