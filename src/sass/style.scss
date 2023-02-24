@@ -1,0 +1,84 @@
+// FONT IMPORT
+@import url("https://fonts.googleapis.com/css2?family=Texturina:opsz,wght@12..72,500;12..72,900&display=swap");
+
+// MAIN FONT
+$main-font: "Texturina", serif;
+
+// FONT SIZES
+$x-large: 36px;
+$large: 30px;
+$medium: 20px;
+$regular: 16px;
+$small: 14px;
+
+// SPACING
+$spc-000: 0.25rem;
+$spc-00: 0.5 rem;
+$spc-0: 0.75rem;
+$spc-1: 1rem;
+$spc-2: 1.5rem;
+$spc-3: 2rem;
+
+// // COLORS
+// $main-bg: #f1f5f9;
+// $sky-900: #0c4a6e;
+$sky-700: #0369a1;
+
+// Primary Colors
+$dark-blue: #0b1a2a; // main interface
+$light-blue: #4d7298; // game board
+
+// Secondary Colors
+$red: #b80c09; // hits
+$yellow: #f7ca18; // misses
+$light-gray: #d9e1e7; // players own ships
+
+// Accent Colors
+$orange: #ef6c00; // turn indicator and notification messages
+$teal: #028090; // highlighting selected ships or areas of board
+$dark-gray: #4e4e4e; // victory or end game notifications
+
+*,
+*:before,
+*:after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $main-font;
+}
+
+.main-container {
+  height: 100vh;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  background-color: $dark-blue;
+
+  .title {
+    font-size: $x-large;
+    font-weight: 900;
+    color: $sky-700;
+  }
+}
+
+.board-container {
+  display: flex;
+  gap: $spc-3;
+  margin-top: $spc-2;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+
+  div {
+    width: 50px;
+    height: 50px;
+    border: 1px solid $dark-gray;
+    background-color: $light-gray;
+  }
+}
