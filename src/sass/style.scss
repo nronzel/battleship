@@ -1,8 +1,10 @@
 // FONT IMPORT
 @import url("https://fonts.googleapis.com/css2?family=Texturina:opsz,wght@12..72,500;12..72,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 // MAIN FONT
-$main-font: "Texturina", serif;
+$main-font: "Roboto", sans-serif;
+$title-font: "Texturina", serif;
 
 // FONT SIZES
 $x-large: 36px;
@@ -19,9 +21,7 @@ $spc-1: 1rem;
 $spc-2: 1.5rem;
 $spc-3: 2rem;
 
-// // COLORS
-// $main-bg: #f1f5f9;
-// $sky-900: #0c4a6e;
+// COLORS
 $sky-700: #0369a1;
 
 // Primary Colors
@@ -32,11 +32,19 @@ $light-blue: #4d7298; // game board
 $red: #b80c09; // hits
 $yellow: #f7ca18; // misses
 $light-gray: #d9e1e7; // players own ships
+$med-blue: #163455;
+$sky-300: #7dd3fc;
 
 // Accent Colors
 $orange: #ef6c00; // turn indicator and notification messages
 $teal: #028090; // highlighting selected ships or areas of board
 $dark-gray: #4e4e4e; // victory or end game notifications
+
+$bg-gradient: linear-gradient(
+  180deg,
+  rgba(11, 26, 42, 1) 0%,
+  rgba(16, 38, 61, 1) 90%
+);
 
 *,
 *:before,
@@ -44,6 +52,10 @@ $dark-gray: #4e4e4e; // victory or end game notifications
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
 }
 
 body {
@@ -55,19 +67,45 @@ body {
   display: flex;
   flex-flow: column;
   align-items: center;
-  background-color: $dark-blue;
+  background: $bg-gradient;
+  background-repeat: no-repeat;
+  position: relative;
 
   .title {
+    font-family: $title-font;
     font-size: $x-large;
     font-weight: 900;
     color: $sky-700;
+    // font-size: 72px;
+    background: -webkit-linear-gradient($light-blue, $sky-300);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: $sky-700;
+    -webkit-text-stroke-width: 1px;
   }
 }
 
-.board-container {
+.boards {
   display: flex;
   gap: $spc-3;
   margin-top: $spc-2;
+  padding: $spc-3;
+}
+
+.board-container {
+  padding: $spc-3;
+  background-color: $med-blue;
+  border-radius: 15px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  gap: $spc-2;
+
+  .board-title {
+    color: white;
+    font-size: $medium;
+  }
 }
 
 .board {
@@ -78,7 +116,22 @@ body {
   div {
     width: 50px;
     height: 50px;
-    border: 1px solid $dark-gray;
-    background-color: $light-gray;
+    border: 1px solid $sky-300;
+    background-color: $light-blue;
+    border-radius: 3px;
+    transition: all 0.1s ease-in-out;
+
+    &:hover {
+      background-color: $teal;
+    }
   }
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: $spc-1;
+  color: white;
+  display: flex;
+  gap: $spc-1;
 }
