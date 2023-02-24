@@ -19,7 +19,6 @@ describe("Gameboard", () => {
       randomMove: expect.any(Function),
       checkIfExistingMove: expect.any(Function),
       allShipsSunk: expect.any(Function),
-      initGrid: expect.any(Function),
       setShipLocation: expect.any(Function),
     });
   });
