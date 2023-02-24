@@ -79,17 +79,7 @@ const gameboardActions = {
   allShipsSunk() {
     if (this.hits.length === 17) {
       this.allSunk = true;
-      return console.log("all sunk, game over");
-    }
-  },
-
-  initGrid() {
-    // create 10 x 10 grid with coordinates
-    // [main [column [square]]]
-    for (let i = 0; i < 10; i++) {
-      let row = [];
-      this.grid.push(row);
-      for (let j = 0; j < 10; j++) row.push([i, j]);
+      console.log("all sunk, game over");
     }
   },
 
